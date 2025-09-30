@@ -15,16 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import path
-#import apps.bookmodule.views
-import apps.bookmodule.views
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path, include
+from apps.bookmodule import views  # نستورد views عشان نستخدم index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/', include("apps.bookmodule.urls")),  # ربط urls.py لتطبيق bookmodule
-    path('users/', include("apps.usermodule.urls")),  # ربط urls.py لتطبيق usermodule
-]
 
+    # الصفحة الرئيسية → index
+    path('', views.index, name="index"),
+
+    # باقي الروابط
+    path('books/', include("apps.bookmodule.urls")),  
+    path('users/', include("apps.usermodule.urls")),  
+]
 
